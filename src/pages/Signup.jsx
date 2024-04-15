@@ -35,7 +35,7 @@ const Signup = () => {
       <div className="signuparea">
         <div className="signupareaelem">
           <h1>Regístrate</h1>
-          <InputCustom onChange={handleName} />
+          <InputCustom onChange={handleName} placeholder='Diana' type='text' id='userName' icon='person' label='Nombre'/>
           <Email onChange={handleEmail} />
           <Password onChange={handlePassword} />
           <div className="signupbtnarea">
