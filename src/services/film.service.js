@@ -17,9 +17,9 @@ export const getAllFilmGenres = async () => {
 export const getAllFilmsByGenre = async (genreId) => {
   try {
     const { data } = await movieDB.get(
-      `/discover/movie?include_adult=false&include_video=true&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreId}`
+      `/discover/movie?include_adult=false&language=en-US&sort_by=popularity.desc&with_genres=${genreId}`
     );
-    console.log(data);
+    return data.results
   } catch (error) {
     console.log(error);
     throw new Error('Error showing all films by category');
@@ -33,6 +33,20 @@ export const latestFilm = async () => {
     const { data } = await movieDB.get('movie/now_playing');
     return data.results[0];
   } catch (error) {
+    console.log(error);
     throw new Error('Error showing latest film');
   }
 };
+
+
+// Movies -> Details
+// https://developer.themoviedb.org/reference/movie-details
+export const getFilmById = async (movieId) => {
+  try {
+    const { data } = await movieDB.get(`/movie/${movieId}`)
+    return data
+  } catch (error) {
+    console.log(error);
+    throw new Error(`Error showing film with id ${movieId}`);
+  }
+}

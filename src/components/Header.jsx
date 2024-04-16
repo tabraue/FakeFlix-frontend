@@ -5,17 +5,14 @@ const Header = () => {
     <div className="headerContainer">
       <div className="headerDiv">
         <Link to={'/'}>
-          <img
-            src="/fakeflixlogo.png"
-            alt="Fake Flix Logo"
-          />
+          <img src="/fakeflixlogo.png" alt="Fake Flix Logo" />
         </Link>
-        <div className="headerBtn">
-            <Link to={'/login'}>Log In</Link>
-        </div>
+        <Link to={'/login'} className="linkbtn">
+          Log In
+        </Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

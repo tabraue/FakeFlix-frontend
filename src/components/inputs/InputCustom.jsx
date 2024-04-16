@@ -3,6 +3,7 @@ import { PiPersonArmsSpreadFill } from 'react-icons/pi';
 import { FaSearch } from 'react-icons/fa';
 
 const InputCustom = ({ onChange, placeholder, type, id, icon, label }) => {
+
   const showIcon = (icon) => {
     switch (icon) {
       case 'person':
@@ -25,7 +26,7 @@ const InputCustom = ({ onChange, placeholder, type, id, icon, label }) => {
   };
 
   const handleChange = (e) => {
-    if (onChange) onChange(e.target.value);
+    if (onChange) onChange(e);
   };
 
   return (
