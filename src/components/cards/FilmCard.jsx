@@ -1,58 +1,112 @@
 import { PropTypes } from 'prop-types';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FaHeart, FaRegHeart, FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { FavsContext } from '../../context/favsContext';
+import { addFav, deleteFav } from '../../services/favs.service';
 
 const FilmCard = ({ film }) => {
-  const [isFav, setIsFav] = useState(false);
+  //const [isFav, setIsFav] = useState(false);
+
+  const { favs, setFavs } = useContext(FavsContext);
+
+  /*   // -> añadir favorito al DB
+  const add = async (filmId) => {
+    await addFav(filmId);
+  };
+
+  // -> eliminar del favorito al DB
+  const remove = async (filmId) => {
+    await deleteFav(filmId);
+  };
+
+  // -> cambiar de favorito a no favorito, aprovechando tb para la visualización
+  const toggleFav = (id) => {
+    if (favs?.includes(film?.id?.toString())) {
+      remove(id);
+      setFavs(favs?.filter((favId) => favId !== id));
+    } else {
+      add(id);
+      setFavs([...favs, id]);
+    }
+  };
+
+  useEffect(() => {}, [favs]); */
+
+  // -> añadir favorito al DB
+  const add = async (filmId) => {
+    await addFav(filmId);
+    setFavs((prevFavs) => [...prevFavs, filmId?.toString()]);
+  };
+
+  // -> eliminar del favorito al DB
+  const remove = async (filmId) => {
+    await deleteFav(filmId);
+    setFavs((prevFavs) =>
+      prevFavs.filter((favId) => favId !== filmId?.toString())
+    );
+  };
+
+  const toggleFav = async (id) => {
+    const idToString = id.toString();
+    if (favs?.includes(idToString)) {
+      await remove(idToString);
+    } else {
+      await add(idToString);
+    }
+  };
+
   return (
-    <Link to={`/film/${film.id}`} className="link">
-      <div className="filmcard">
-        {isFav ? (
-          <FaHeart 
-            onClick={() => alert('corazón de melón')}
-            size={20}
-            style={{
-              position: 'absolute',
-              right: 0,
-              zIndex: 50,
-              marginRight: '10px',
-              marginTop: '10px',
-              color: 'red',
-            }}
-          />
-        ) : (
-          <FaRegHeart
-            size={20}
-            style={{
-              position: 'absolute',
-              right: 0,
-              zIndex: 50,
-              marginRight: '10px',
-              marginTop: '10px',
-              color: 'red',
-            }}
-          />
-        )}
-        <div
-          className="filmcardarea"
+    <div className="filmcard">
+      {favs?.includes(film?.id?.toString()) ? (
+        <FaHeart
+          onClick={() => toggleFav(film.id)}
+          size={20}
           style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/original/${film.poster_path})`,
+            position: 'absolute',
+            right: 0,
+            zIndex: 50,
+            marginRight: '10px',
+            marginTop: '10px',
+            color: 'red',
           }}
-        >
-          <div className="filmcardelem">
-            <h1>{film.title}</h1>
-            <span>
-              <FaStar
-                size={15}
-                style={{ color: '#e2d13b', marginRight: '5px' }}
-              />
-              {film.vote_average}
-            </span>
+        />
+      ) : (
+        <FaRegHeart
+          onClick={() => toggleFav(film.id)}
+          size={20}
+          style={{
+            position: 'absolute',
+            right: 0,
+            zIndex: 50,
+            marginRight: '10px',
+            marginTop: '10px',
+            color: 'red',
+          }}
+        />
+      )}
+      <Link to={`/film/${film.id}`}>
+        <div className="filmcard">
+          <div
+            className="filmcardarea"
+            style={{
+              backgroundImage: `url(https://image.tmdb.org/t/p/original/${film.poster_path})`,
+            }}
+          >
+            <div className="filmcardelem">
+              <h1>{film.title}</h1>
+              <span>
+                <FaStar
+                  size={15}
+                  style={{ color: '#e2d13b', marginRight: '5px' }}
+                />
+                {film.vote_average}
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 };
 

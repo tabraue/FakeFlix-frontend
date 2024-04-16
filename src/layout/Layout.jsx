@@ -8,9 +8,7 @@ import { getAllFavs } from '../services/favs.service';
 const Layout = () => {
   const [favs, setFavs] = useState(null); // favs es el array con todos los ids :string
   const favValues = { favs, setFavs };
-
-  console.log(favs)
-
+  
   const getFavs = async () => {
     const res = await getAllFavs()
     setFavs(res)
