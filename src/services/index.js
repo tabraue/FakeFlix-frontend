@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const movieDB = axios.create({
+export const movieDB = axios.create({
   baseURL: 'https://api.themoviedb.org/3',
   params: {
     api_key: 'b19ffead0d20751b58ebdf8a4e8d9246',
@@ -9,4 +9,7 @@ const movieDB = axios.create({
   timeout: 3000,
 });
 
-export default movieDB;
+
+export const api = axios.create({
+  baseURL: 'http://localhost:27020/api',
+});

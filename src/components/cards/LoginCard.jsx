@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import Email from '../inputs/Email.jsx';
 import Password from '../inputs/Password.jsx';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { login } from '../../services/auth.service.js';
 
 const LoginCard = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleEmail = (email) => {
     setEmail(email);
@@ -15,12 +17,15 @@ const LoginCard = () => {
     setPassword(password);
   };
 
-  const handleLogin = () => {
-    alert('hay que hacer login')
+  const handleLogin = async () => {
+    const res = await login(email, password);
+    if (res) {
+      navigate('/home');
+    }
   };
 
   return (
-    <form className="logincard" >
+    <div className="logincard">
       <div className="imgcontainer">
         <img
           src="https://source.unsplash.com/random?film,movie,serie"
@@ -41,7 +46,7 @@ const LoginCard = () => {
           </div>
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 

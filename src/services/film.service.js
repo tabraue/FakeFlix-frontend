@@ -1,4 +1,4 @@
-import movieDB from '.';
+import { movieDB } from ".";
 
 // Genre -> Movie list
 // https://developer.themoviedb.org/reference/genre-movie-list

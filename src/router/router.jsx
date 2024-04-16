@@ -7,6 +7,7 @@ import Signup from '../pages/Signup.jsx';
 import Home from '../pages/Home.jsx';
 import Films from '../pages/Films.jsx';
 import FilmDetail from '../pages/FilmDetail.jsx';
+import Profile from '../pages/Profile.jsx';
 
 const isAuthenticated = () => !localStorage.getItem("token") ? redirect("/login") : null
 
@@ -19,9 +20,10 @@ export const router = createBrowserRouter([
        { path: '/', element: <Landing/> },
        { path: '/login', element: <Login/> },
        { path: '/signup', element: <Signup/> },
-       { path: '/home', element: <Home/>, /* loader: isAuthenticated */ },
-       { path: '/films/:genreId', element: <Films/>, /* loader: isAuthenticated */  },
-       { path: '/film/:movieId', element: <FilmDetail/>, /* loader: isAuthenticated */ },
+       { path: '/home', element: <Home/>, loader: isAuthenticated },
+       { path: '/films/:genreId', element: <Films/>, loader: isAuthenticated  },
+       { path: '/film/:movieId', element: <FilmDetail/>, loader: isAuthenticated },
+       { path: '/profile', element: <Profile/>, loader: isAuthenticated },
        { path: '*', element: <NotFound/> },
     ],
   },

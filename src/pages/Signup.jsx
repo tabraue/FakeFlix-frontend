@@ -1,48 +1,65 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Email from '../components/inputs/Email.jsx';
 import InputCustom from '../components/inputs/InputCustom.jsx';
 import Password from '../components/inputs/Password.jsx';
+import { signup } from './../services/auth.service';
 
 const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isChecked, setIsChecked] = useState(false);
+  const navigate = useNavigate();
 
   const handleEmail = (email) => {
-    setEmail(email);
+    setEmail(email.target.value);
   };
 
   const handlePassword = (password) => {
-    setPassword(password);
+    setPassword(password.target.value);
   };
 
   const handleName = (name) => {
-    setName(name);
+    setName(name.target.value);
   };
 
   const handleChecked = () => {
     setIsChecked(!isChecked);
   };
 
-  const handleSignup = () => {
-    alert('hay que hacer el signup');
+  const handleSignup = async () => {
+    console.log(name, email, password, isChecked)
+    if (name && email && password && isChecked) {
+      const res = await signup(name, email, password);
+      if (res) {
+        navigate('/home');
+      }
+    } else {
+      alert('Revisa la info pls!');
+    }
   };
 
   return (
-    <form className="signupcard bkg">
+    <div className="signupcard bkg">
       <div className="signuparea">
         <div className="signupareaelem">
           <h1>Regístrate</h1>
-          <InputCustom onChange={handleName} placeholder='Diana' type='text' id='userName' icon='person' label='Nombre'/>
+          <InputCustom
+            onChange={handleName}
+            placeholder="Diana"
+            type="text"
+            id="userName"
+            icon="person"
+            label="Nombre"
+          />
           <Email onChange={handleEmail} />
           <Password onChange={handlePassword} />
           <div className="signupbtnarea">
             <Link to={'/login'} className="link">
               Ya tengo una cuenta.
             </Link>
-            <div className='signupcb'>
+            <div className="signupcb">
               <input
                 id="link-checkbox"
                 type="checkbox"
@@ -60,7 +77,7 @@ const Signup = () => {
           </div>
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 

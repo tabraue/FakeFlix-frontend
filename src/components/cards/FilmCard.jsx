@@ -1,51 +1,57 @@
 import { PropTypes } from 'prop-types';
+import { useState } from 'react';
 import { FaHeart, FaRegHeart, FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const FilmCard = ({ film }) => {
+  const [isFav, setIsFav] = useState(false);
   return (
-    <Link to={`/film/${film.id}`} className='link'>
-    <div className="filmcard">
-      <FaRegHeart
-        size={20}
-        style={{
-          position: 'absolute',
-          right: 0,
-          zIndex: 50,
-          marginRight: '10px',
-          marginTop: '10px',
-          color: 'red',
-        }}
-      />
-      <FaHeart
-        size={20}
-        style={{
-          position: 'absolute',
-          right: 0,
-          zIndex: 50,
-          marginRight: '10px',
-          marginTop: '10px',
-          color: 'red',
-        }}
-      />
-      <div
-        className="filmcardarea"
-        style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/original/${film.poster_path})`,
-        }}
-      >
-        <div className="filmcardelem">
-          <h1>{film.title}</h1>
-          <span>
-            <FaStar
-              size={15}
-              style={{ color: '#e2d13b', marginRight: '5px' }}
-            />
-            {film.vote_average}
-          </span>
+    <Link to={`/film/${film.id}`} className="link">
+      <div className="filmcard">
+        {isFav ? (
+          <FaHeart 
+            onClick={() => alert('corazón de melón')}
+            size={20}
+            style={{
+              position: 'absolute',
+              right: 0,
+              zIndex: 50,
+              marginRight: '10px',
+              marginTop: '10px',
+              color: 'red',
+            }}
+          />
+        ) : (
+          <FaRegHeart
+            size={20}
+            style={{
+              position: 'absolute',
+              right: 0,
+              zIndex: 50,
+              marginRight: '10px',
+              marginTop: '10px',
+              color: 'red',
+            }}
+          />
+        )}
+        <div
+          className="filmcardarea"
+          style={{
+            backgroundImage: `url(https://image.tmdb.org/t/p/original/${film.poster_path})`,
+          }}
+        >
+          <div className="filmcardelem">
+            <h1>{film.title}</h1>
+            <span>
+              <FaStar
+                size={15}
+                style={{ color: '#e2d13b', marginRight: '5px' }}
+              />
+              {film.vote_average}
+            </span>
+          </div>
         </div>
       </div>
-    </div>
     </Link>
   );
 };

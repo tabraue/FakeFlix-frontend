@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import { getAllFilmGenres, latestFilm } from '../services/film.service';
 import { Link } from 'react-router-dom';

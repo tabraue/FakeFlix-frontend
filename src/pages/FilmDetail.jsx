@@ -1,12 +1,39 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { getFilmById } from '../services/film.service';
 import { MdAccessTime } from 'react-icons/md';
 import { FaHeart, FaRegHeart, FaStar } from 'react-icons/fa';
+import { FavsContext } from '../context/favsContext';
+import { addFav, deleteFav } from '../services/favs.service';
 
 const FilmDetail = () => {
-  const { movieId } = useParams();
+  const { movieId } = useParams(); // :string
   const [film, setFilm] = useState([]);
+  const [isFav, setIsFav] = useState(false);
+  const { favs } = useContext(FavsContext);
+
+  //console.log(favs?.includes(movieId))
+
+  // -> añadir favorito al DB
+  const add = async (filmId) => {
+    await addFav(filmId);
+  };
+
+  // -> eliminar del favorito al DB
+  const remove = async (filmId) => {
+    await deleteFav(filmId);
+  };
+
+  // -> cambiar de favorito a no favorito, aprovechando tb para la visualización
+  const toggleFav = async () => {
+    setIsFav(!isFav);
+    if (isFav) {
+      remove(movieId);
+    } else {
+      add(movieId);
+      //setFavs([...favs, movieId])
+    }
+  };
 
   const filmById = async (movieId) => {
     const res = await getFilmById(movieId);
@@ -16,6 +43,10 @@ const FilmDetail = () => {
   useEffect(() => {
     filmById(movieId);
   }, []);
+
+  useEffect(() => {
+    setIsFav(favs?.includes(movieId));
+  }, [movieId, favs]);
 
   return (
     <div className="filmdetailcontainer">
@@ -27,22 +58,33 @@ const FilmDetail = () => {
         <div>
           <h1>{film.original_title}</h1>
           <h3>{film.title}</h3>
-          <div style={{textAlign: 'right'}}>
-            Add to my favs {' '}
-            <FaRegHeart
-              size={20}
-              style={{
-                color: 'red',
-                verticalAlign: 'middle',
-              }}
-            />
-            <FaHeart
-              size={20}
-              style={{
-                color: 'red',
-                verticalAlign: 'middle',
-              }}
-            />
+          <div style={{ textAlign: 'right' }}>
+            {isFav ? 'Remove from my favs' : 'Add to my favs'}
+            {isFav ? (
+              /* corazón completo */
+              <FaHeart
+                onClick={() => toggleFav(film.id)}
+                size={20}
+                style={{
+                  color: 'red',
+                  verticalAlign: 'middle',
+                  marginLeft: '10px',
+                  cursor: 'pointer',
+                }}
+              />
+            ) : (
+              /* corazón bordeado */
+              <FaRegHeart
+                onClick={() => toggleFav(film.id)}
+                size={20}
+                style={{
+                  color: 'red',
+                  marginLeft: '10px',
+                  verticalAlign: 'middle',
+                  cursor: 'pointer',
+                }}
+              />
+            )}
           </div>
           <p>{film.overview}</p>
           <p>
@@ -50,7 +92,11 @@ const FilmDetail = () => {
             <ul>
               {film.genres &&
                 film.genres.map((el, idx) => {
-                  return <li key={idx}>{el.name}</li>;
+                  return (
+                    <Link key={idx} to={`/films/${el.id}`}>
+                      <li>{el.name}</li>
+                    </Link>
+                  );
                 })}
             </ul>
           </p>
