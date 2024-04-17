@@ -20,8 +20,9 @@ const Header = () => {
         </Link>
         {token() ? (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-               
-          <GrUserFemale size={20} style={{color: 'white',  verticalAlign: 'middle', marginRight: '10px'}}/>
+           <Link to={'/profile'}>
+            <GrUserFemale size={20} style={{color: 'white',  verticalAlign: 'middle', marginRight: '10px'}}/>
+           </Link>    
             <Link className="linkbtn" onClick={logout}>
               Log Out
             </Link>

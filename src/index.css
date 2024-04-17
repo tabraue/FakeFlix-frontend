@@ -507,6 +507,19 @@ a {
   color: red;
 }
 
+.profile {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
 /* *MEDIA QUERYS */
 
 /* Media query para pantallas de al menos 640px de ancho */

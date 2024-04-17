@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { FaHeart, FaRegHeart, FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { FavsContext } from '../../context/favsContext';

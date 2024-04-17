@@ -15,6 +15,7 @@ const Layout = () => {
     //return res
   }
 
+
   useEffect(() => {
     getFavs()
   }, [])
