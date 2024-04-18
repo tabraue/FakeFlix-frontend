@@ -1,9 +1,9 @@
 import axios from 'axios'
 
 export const movieDB = axios.create({
-  baseURL: 'https://api.themoviedb.org/3',
+  baseURL: import.meta.env.VITE_MOVIEDB_URL,
   params: {
-    api_key: 'b19ffead0d20751b58ebdf8a4e8d9246',
+    api_key: import.meta.env.VITE_API_KEY,
     language: 'en-EN',
   },
   timeout: 3000,
@@ -11,5 +11,5 @@ export const movieDB = axios.create({
 
 
 export const api = axios.create({
-  baseURL: 'http://localhost:27020/api',
+  baseURL: import.meta.env.VITE_MONGO_URL,
 });

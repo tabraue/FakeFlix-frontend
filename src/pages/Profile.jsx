@@ -20,18 +20,22 @@ const Profile = () => {
       const getFilms = async () => {
         const promises = favs.map((id) => getFilm(id));
         const filmsData = await Promise.all(promises);
-        setFilms(filmsData/* .filter((film) => film != null) */);
+        setFilms(filmsData /* .filter((film) => film != null) */);
       };
       getFilms();
     }
   }, [favs]);
 
   return (
-    <div className='profile'>
-      {films?.map((film, idx) => {
-        return <FilmCard key={idx} film={film} />;
-      })}
-    </div>
+    <>
+      <h1>Tus pelis favoritas</h1>
+      <div className="profile">
+        {films &&
+          films?.map((film, idx) => {
+            return <FilmCard key={idx} film={film} />;
+          })}
+      </div>
+    </>
   );
 };
 

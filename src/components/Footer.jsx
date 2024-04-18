@@ -24,7 +24,7 @@ const Footer = () => {
       <div className="footerContainer">
         <div className="footerDiv">
           <a
-            href="https://www.linkedin.com/company/https://www.linkedin.com/in/dianatabraue/"
+            href="https://www.linkedin.com/in/dianatabraue/"
             target="_blank"
             rel="noopener noreferrer"
           >

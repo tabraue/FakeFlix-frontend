@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import {  useState } from 'react';
 import { useEffect } from 'react';
 import { getAllFilmGenres, latestFilm } from '../services/film.service';
 import { Link } from 'react-router-dom';
@@ -6,10 +6,10 @@ import InputCustom from '../components/inputs/InputCustom';
 import FilmCard from '../components/cards/FilmCard';
 
 const Home = () => {
-  const [category, setCategory] = useState([]);
+  const [latest, setLatest] = useState([]);
+  const [categories, setCategory] = useState([]);
   const [categorySearch, setCategorySearch] = useState('');
   const [filteredCategory, setFilteredCategory] = useState([])
-  const [latest, setLatest] = useState([]);
 
 
   // -> servicio para traer todas las categorias de pelis
@@ -40,12 +40,12 @@ const Home = () => {
   const findCategory = () =>  {
     if(categorySearch.length > 0){
       const searching = categorySearch.charAt(0).toUpperCase() + categorySearch.slice(1).toLowerCase()
-      const result = category.filter((el) => {
+      const result = categories.filter((el) => {
         return el.name.includes(searching)
       })
       setFilteredCategory(result)
     }else {
-      setFilteredCategory(category)
+      setFilteredCategory(categories)
     }
   }
 

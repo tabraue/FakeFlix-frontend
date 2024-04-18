@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import {  useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Email from '../components/inputs/Email.jsx';
 import InputCustom from '../components/inputs/InputCustom.jsx';
@@ -13,11 +13,11 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const handleEmail = (email) => {
-    setEmail(email.target.value);
+    setEmail(email);
   };
 
   const handlePassword = (password) => {
-    setPassword(password.target.value);
+    setPassword(password);
   };
 
   const handleName = (name) => {
@@ -29,11 +29,10 @@ const Signup = () => {
   };
 
   const handleSignup = async () => {
-    console.log(name, email, password, isChecked)
     if (name && email && password && isChecked) {
       const res = await signup(name, email, password);
       if (res) {
-        navigate('/home');
+        navigate('/login');
       }
     } else {
       alert('Revisa la info pls!');
