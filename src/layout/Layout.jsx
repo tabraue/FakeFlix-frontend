@@ -12,7 +12,6 @@ const Layout = () => {
   const getFavs = async () => {
     const res = await getAllFavs()
     setFavs(res)
-    //return res
   }
 
 

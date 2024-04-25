@@ -6,32 +6,8 @@ import { FavsContext } from '../../context/favsContext';
 import { addFav, deleteFav } from '../../services/favs.service';
 
 const FilmCard = ({ film }) => {
-  //const [isFav, setIsFav] = useState(false);
 
   const { favs, setFavs } = useContext(FavsContext);
-
-  /*   // -> añadir favorito al DB
-  const add = async (filmId) => {
-    await addFav(filmId);
-  };
-
-  // -> eliminar del favorito al DB
-  const remove = async (filmId) => {
-    await deleteFav(filmId);
-  };
-
-  // -> cambiar de favorito a no favorito, aprovechando tb para la visualización
-  const toggleFav = (id) => {
-    if (favs?.includes(film?.id?.toString())) {
-      remove(id);
-      setFavs(favs?.filter((favId) => favId !== id));
-    } else {
-      add(id);
-      setFavs([...favs, id]);
-    }
-  };
-
-  useEffect(() => {}, [favs]); */
 
   // -> añadir favorito al DB
   const add = async (filmId) => {
